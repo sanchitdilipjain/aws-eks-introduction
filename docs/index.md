@@ -4,14 +4,14 @@
    - Amazon EKS (Elastic Container Service for Kubernetes) is a managed Kubernetes service that allows you to run Kubernetes on AWS without the hassle of managing the Kubernetes control plane. The Kubernetes control plane plays a crucial role in a Kubernetes deployment as it is responsible for how Kubernetes communicates with your cluster
    - The big benefit of EKS, and other similar hosted Kubernetes services, is taking away the operational burden involved in running this control plane. You deploy cluster worker nodes using defined AMIs and with the help of CloudFormation, and EKS will provision, scale and manage the Kubernetes control plane for you to ensure high availability, security and scalability. 
    
-<br>2. Deployment of Amazon EKS
+2. Deployment of Amazon EKS
 
 - **Prerequisite: Before you start**
    <br>You will need to make sure you have the following components installed and set up before you start with Amazon EKS:
    - AWS CLI – while you can use the AWS Console to create a cluster in EKS, the AWS CLI is easier. You will need version 1.16.73 at least. For further instructions, <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">click here</a>.
    - Kubectl – used for communicating with the cluster API server. For further instructions on installing, click here. This endpoint is public by default, but is secured by proper configuration of a VPC (see below).
    - AWS-IAM-Authenticator – to allow IAM authentication with the Kubernetes cluster. Check out the repo on GitHub for instructions on setting this up.
-<br>
+
 - **Step 1: Creating an EKS role**
   <br>Our first step is to set up a new IAM role with EKS permissions.
   - Open the IAM console, select Roles on the left and then click the Create Role button at the top of the page.
@@ -26,7 +26,7 @@
   - Be sure to note the Role ARN, you will need it when creating the Kubernetes cluster in the steps below.
   
   - Amazon EKS also offers service account IAM roles, eliminating previous iterations’ requirement for extended worker node permissions.
-<br>
+
 - **Step 2: Creating a VPC for EKS**
   <br>Next, we’re going to create a separate VPC a Virtual Private Cloud that protects communication between worker nodes and the AWS Kubernetes and API server for our EKS cluster. To do this, we’re going to use a CloudFormation template that contains all the necessary EKS-specific ingredients for setting up the VPC.
    - Open up CloudFormation, and click the Create new stack button.
@@ -45,7 +45,7 @@
    - As of December 2019, you can configure the private access point of the API server from outside of the VPC.
 
    - Ensure you have set to true the enableDnsHostnames and enableDnsSupport fields, otherwise routing to the API server won’t work.
-<br>
+
 - **Step 3: Creating the EKS cluster**
   <br>As mentioned above, we will use the AWS CLI to create the Kubernetes cluster. To do this, use the following command:
        
@@ -126,7 +126,7 @@
         </table>
         
    - Click the cluster in the EKS Console to review configurations:
-<br>
+
 - **Step 4: Launching Kubernetes worker nodes**
   <br>Now that we’ve set up our cluster and VPC networking, we can now launch Kubernetes worker nodes. To do this, we will again use a CloudFormation template.
    
@@ -177,7 +177,7 @@
   - You should see the following output: configmap/aws-auth created
   
   - Use kubectl to check on the status of your worker nodes: kubectl get nodes --watch
-<br>
+
 - **Step 5: Installing a demo app on Kubernetes**
 
   - Congrats! Your Kubernetes cluster is created and set up. To take her for a spin, we’re going to deploy a simple Guestbook app written in PHP and using Redis for storing guest entries.
