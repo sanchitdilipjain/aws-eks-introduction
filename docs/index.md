@@ -245,4 +245,4 @@
 
   - Open your browser and point to the guestbook’s external IP at port 3000:
   
-       <img src="image/img1.png" alt="hi" class="inline"/>
+       <img src="image/output.png" alt="hi" class="inline"/>
